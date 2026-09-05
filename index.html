@@ -128,6 +128,7 @@
   .video-item:hover{ box-shadow:0 6px 16px rgba(174,152,232,0.22); }
   .thumb{ width:86px; height:56px; border-radius:10px; flex-shrink:0; background:linear-gradient(135deg, var(--blue), var(--lav)); display:flex; align-items:center; justify-content:center; }
   .thumb svg{ width:18px; height:18px; color:#fff; }
+  .thumb img{ width:100%; height:100%; object-fit:cover; border-radius:10px; display:none; }
   .video-meta b{ font-size:13.5px; display:block; margin-bottom:3px; }
   .video-meta span{ font-size:12px; color:var(--muted); }
 
@@ -292,7 +293,8 @@
 
       <div class="photo-frame">
         <div class="inner">
-          <div class="photo-placeholder">여기에<br>사진을 넣어주세요</div>
+          <img id="f-profile-img" alt="프로필 사진" style="display:none">
+          <div class="photo-placeholder" id="f-profile-placeholder">여기에<br>사진을 넣어주세요</div>
         </div>
       </div>
 
@@ -347,15 +349,15 @@
       </div>
       <div class="video-list">
         <a class="video-item" href="#" target="_blank" id="f-video1">
-          <div class="thumb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="thumb"><img id="f-video1-thumb" alt="영상 1 썸네일"><svg id="f-video1-thumb-placeholder" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
           <div class="video-meta"><b id="f-video1-title">영상 제목 1</b><span id="f-video1-sub">조회수 · 업로드일</span></div>
         </a>
         <a class="video-item" href="#" target="_blank" id="f-video2">
-          <div class="thumb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="thumb"><img id="f-video2-thumb" alt="영상 2 썸네일"><svg id="f-video2-thumb-placeholder" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
           <div class="video-meta"><b id="f-video2-title">영상 제목 2</b><span id="f-video2-sub">조회수 · 업로드일</span></div>
         </a>
         <a class="video-item" href="#" target="_blank" id="f-video3">
-          <div class="thumb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="thumb"><img id="f-video3-thumb" alt="영상 3 썸네일"><svg id="f-video3-thumb-placeholder" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
           <div class="video-meta"><b id="f-video3-title">영상 제목 3</b><span id="f-video3-sub">조회수 · 업로드일</span></div>
         </a>
       </div>
@@ -431,6 +433,7 @@
         <div class="field"><label>상단 뱃지 문구</label><input type="text" data-key="badge"></div>
         <div class="field"><label>닉네임</label><input type="text" data-key="name"></div>
         <div class="field"><label>한 줄 소개</label><input type="text" data-key="tagline"></div>
+        <div class="field"><label>프로필 사진 URL</label><input type="url" data-key="profile-image" placeholder="https://..."></div>
       </details>
 
       <details class="edit-group">
@@ -462,12 +465,15 @@
         <div class="field"><label>영상 1 제목</label><input type="text" data-key="video1-title"></div>
         <div class="field"><label>영상 1 설명</label><input type="text" data-key="video1-sub"></div>
         <div class="field"><label>영상 1 링크</label><input type="url" data-key="video1-href" placeholder="https://..."></div>
+        <div class="field"><label>영상 1 썸네일 URL</label><input type="url" data-key="video1-thumb" placeholder="https://..."></div>
         <div class="field"><label>영상 2 제목</label><input type="text" data-key="video2-title"></div>
         <div class="field"><label>영상 2 설명</label><input type="text" data-key="video2-sub"></div>
         <div class="field"><label>영상 2 링크</label><input type="url" data-key="video2-href" placeholder="https://..."></div>
+        <div class="field"><label>영상 2 썸네일 URL</label><input type="url" data-key="video2-thumb" placeholder="https://..."></div>
         <div class="field"><label>영상 3 제목</label><input type="text" data-key="video3-title"></div>
         <div class="field"><label>영상 3 설명</label><input type="text" data-key="video3-sub"></div>
         <div class="field"><label>영상 3 링크</label><input type="url" data-key="video3-href" placeholder="https://..."></div>
+        <div class="field"><label>영상 3 썸네일 URL</label><input type="url" data-key="video3-thumb" placeholder="https://..."></div>
       </details>
 
       <details class="edit-group">
@@ -515,19 +521,23 @@
 <script>
 (function(){
   var STORAGE_KEY = 'my-channel-hub-v1';
+  var SUPABASE_URL = 'https://fuhtdwcqsrddaewwajre.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_zcYG0iis45iVmk6WuRlxQQ_q_VAZgcS';
+  var REST_URL = SUPABASE_URL + '/rest/v1/site_content';
 
   var defaults = {
     'badge':'오늘 저녁 방송 예정',
     'name':'닉네임을 입력하세요',
     'tagline':'한 줄 소개를 여기에 적어주세요',
+    'profile-image':'',
     'link-broadcast-label':'방송국', 'link-broadcast-href':'#',
     'link-youtube-label':'유튜브', 'link-youtube-href':'#',
     'link-fancafe-label':'팬카페', 'link-fancafe-href':'#',
     'today-time':'19:00', 'today-title':'방송 제목을 입력하세요', 'today-sub':'카테고리 · 방송 플랫폼',
     'videos-all':'#',
-    'video1-title':'영상 제목 1', 'video1-sub':'조회수 · 업로드일', 'video1-href':'#',
-    'video2-title':'영상 제목 2', 'video2-sub':'조회수 · 업로드일', 'video2-href':'#',
-    'video3-title':'영상 제목 3', 'video3-sub':'조회수 · 업로드일', 'video3-href':'#',
+    'video1-title':'영상 제목 1', 'video1-sub':'조회수 · 업로드일', 'video1-href':'#', 'video1-thumb':'',
+    'video2-title':'영상 제목 2', 'video2-sub':'조회수 · 업로드일', 'video2-href':'#', 'video2-thumb':'',
+    'video3-title':'영상 제목 3', 'video3-sub':'조회수 · 업로드일', 'video3-href':'#', 'video3-thumb':'',
     'week-mon-time':'-', 'week-mon-content':'휴방',
     'week-tue-time':'20:00', 'week-tue-content':'방송 내용',
     'week-wed-time':'19:00', 'week-wed-content':'방송 내용',
@@ -572,13 +582,23 @@
     'debt1-checked':'#f-debt1-check', 'debt2-checked':'#f-debt2-check', 'debt3-checked':'#f-debt3-check'
   };
 
-  function loadState(){
-    try{
-      var raw = localStorage.getItem(STORAGE_KEY);
-      if(!raw) return Object.assign({}, defaults);
-      var saved = JSON.parse(raw);
-      return Object.assign({}, defaults, saved);
-    }catch(e){ return Object.assign({}, defaults); }
+  function renderImage(imgSelector, placeholderSelector, url){
+    var img = document.querySelector(imgSelector);
+    var placeholder = document.querySelector(placeholderSelector);
+    if(!img) return;
+    if(url){
+      img.src = url;
+      img.style.display = 'block';
+      if(placeholder) placeholder.style.display = 'none';
+      img.onerror = function(){
+        img.style.display = 'none';
+        if(placeholder) placeholder.style.display = '';
+      };
+    }else{
+      img.removeAttribute('src');
+      img.style.display = 'none';
+      if(placeholder) placeholder.style.display = '';
+    }
   }
 
   function render(state){
@@ -594,17 +614,18 @@
       var el = document.querySelector(checkTargets[key]);
       if(el) el.checked = !!state[key];
     });
+    renderImage('#f-profile-img', '#f-profile-placeholder', state['profile-image']);
+    for(var i=1;i<=3;i++){
+      renderImage('#f-video'+i+'-thumb', '#f-video'+i+'-thumb-placeholder', state['video'+i+'-thumb']);
+    }
   }
 
   function fillForm(state){
     var form = document.getElementById('editForm');
     Array.prototype.forEach.call(form.querySelectorAll('[data-key]'), function(input){
       var key = input.getAttribute('data-key');
-      if(input.type === 'checkbox'){
-        input.checked = !!state[key];
-      }else{
-        input.value = state[key] !== undefined ? state[key] : '';
-      }
+      if(input.type === 'checkbox') input.checked = !!state[key];
+      else input.value = state[key] !== undefined ? state[key] : '';
     });
   }
 
@@ -618,7 +639,37 @@
     return out;
   }
 
-  var state = loadState();
+  async function loadRemoteState(){
+    var res = await fetch(REST_URL + '?id=eq.1&select=content', {
+      headers: { 'apikey': SUPABASE_KEY }
+    });
+    if(!res.ok) throw new Error('load failed: ' + res.status);
+    var rows = await res.json();
+    if(rows && rows[0] && rows[0].content) return Object.assign({}, defaults, rows[0].content);
+    return Object.assign({}, defaults);
+  }
+
+  async function saveRemoteState(nextState){
+    var res = await fetch(REST_URL + '?id=eq.1', {
+      method: 'PATCH',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ content: nextState, updated_at: new Date().toISOString() })
+    });
+    if(!res.ok){
+      var msg = await res.text();
+      throw new Error('save failed: ' + res.status + ' ' + msg);
+    }
+  }
+
+  var state = Object.assign({}, defaults);
+  try{
+    var localRaw = localStorage.getItem(STORAGE_KEY);
+    if(localRaw) state = Object.assign({}, state, JSON.parse(localRaw));
+  }catch(e){}
   render(state);
 
   var fab = document.getElementById('editFab');
@@ -629,43 +680,61 @@
   var resetBtn = document.getElementById('resetBtn');
   var toast = document.getElementById('toast');
 
-  function openPanel(){
-    fillForm(state);
-    overlay.classList.add('open');
-    panel.classList.add('open');
-  }
-  function closePanel(){
-    overlay.classList.remove('open');
-    panel.classList.remove('open');
-  }
+  function openPanel(){ fillForm(state); overlay.classList.add('open'); panel.classList.add('open'); }
+  function closePanel(){ overlay.classList.remove('open'); panel.classList.remove('open'); }
   function showToast(msg){
-    toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(function(){ toast.classList.remove('show'); }, 1800);
+    toast.textContent = msg; toast.classList.add('show');
+    setTimeout(function(){ toast.classList.remove('show'); }, 2200);
   }
 
   fab.addEventListener('click', openPanel);
   closeBtn.addEventListener('click', closePanel);
   overlay.addEventListener('click', closePanel);
 
-  saveBtn.addEventListener('click', function(){
-    state = Object.assign({}, state, readForm());
-    render(state);
+  saveBtn.addEventListener('click', async function(){
+    var previousText = saveBtn.textContent;
+    saveBtn.disabled = true;
+    saveBtn.textContent = '저장 중...';
+    var nextState = Object.assign({}, state, readForm());
     try{
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      showToast('저장되었어요 🐻');
+      await saveRemoteState(nextState);
+      state = nextState;
+      render(state);
+      try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+      showToast('인터넷에 저장되었어요 🐻');
     }catch(e){
-      showToast('저장에 실패했어요');
+      console.error(e);
+      showToast('온라인 저장에 실패했어요');
+    }finally{
+      saveBtn.disabled = false;
+      saveBtn.textContent = previousText;
     }
   });
 
-  resetBtn.addEventListener('click', function(){
-    if(!confirm('처음 상태로 되돌릴까요? 저장된 내용이 사라져요.')) return;
-    localStorage.removeItem(STORAGE_KEY);
-    state = Object.assign({}, defaults);
+  resetBtn.addEventListener('click', async function(){
+    if(!confirm('처음 상태로 되돌릴까요? 온라인에 저장된 내용도 초기화돼요.')) return;
+    resetBtn.disabled = true;
+    try{
+      var nextState = Object.assign({}, defaults);
+      await saveRemoteState(nextState);
+      state = nextState;
+      render(state);
+      fillForm(state);
+      localStorage.removeItem(STORAGE_KEY);
+      showToast('온라인 내용이 초기화되었어요');
+    }catch(e){
+      console.error(e);
+      showToast('초기화에 실패했어요');
+    }finally{ resetBtn.disabled = false; }
+  });
+
+  loadRemoteState().then(function(remoteState){
+    state = remoteState;
     render(state);
-    fillForm(state);
-    showToast('초기화되었어요');
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+  }).catch(function(e){
+    console.error(e);
+    showToast('온라인 내용을 불러오지 못했어요');
   });
 })();
 </script>
