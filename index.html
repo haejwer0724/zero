@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>스트리머 홈 · PC 가로형</title>
+<title>스트리머 홈</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -300,137 +300,22 @@
   }
   #toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
 
-  /* ===== FINAL DESKTOP LAYOUT OVERRIDE =====
-     PC에서는 항상: 왼쪽 프로필 / 오른쪽 콘텐츠 2열
-     모바일(899px 이하)만 세로형
-  */
-  .wrap{
-    max-width:1120px !important;
-    padding:32px 24px 60px !important;
-  }
-  .layout{
-    display:grid !important;
-    grid-template-columns:340px minmax(0, 1fr) !important;
-    gap:30px !important;
-    align-items:start !important;
-  }
-  .sidebar{
-    background:var(--surface) !important;
-    border-radius:28px !important;
-    overflow:hidden !important;
-    box-shadow:0 16px 36px rgba(174,152,232,0.22) !important;
-    position:sticky !important;
-    top:24px !important;
-  }
-  .sidebar .sky-scene{ padding-top:26px !important; }
-  .sidebar .wave{ display:none !important; }
-  .hero-body{ padding-bottom:26px !important; }
-  .main-content .content-area{
-    background:transparent !important;
-    padding:0 !important;
-  }
-  .main-content section{ margin-top:0 !important; }
-  .main-content section + section{ margin-top:26px !important; }
-  .video-list{
-    display:grid !important;
-    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
-    gap:14px !important;
-  }
-  .video-item{
-    flex-direction:column !important;
-    align-items:stretch !important;
-  }
-  .video-item .thumb{
-    width:100% !important;
-    height:120px !important;
-  }
-  .gallery-grid{
-    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
-  }
-
-  @media (max-width:899px){
-    .wrap{
-      max-width:520px !important;
-      padding:0 0 60px !important;
-    }
-    .layout{
-      display:block !important;
-    }
-    .sidebar{
-      background:transparent !important;
-      border-radius:0 !important;
-      overflow:visible !important;
-      box-shadow:none !important;
-      position:static !important;
-    }
-    .sidebar .sky-scene{ padding-top:28px !important; }
-    .sidebar .wave{ display:block !important; }
-    .hero-body{ padding-bottom:0 !important; }
-    .main-content .content-area{
-      background:var(--surface) !important;
-      padding:4px 20px 0 !important;
-    }
-    .main-content section{ margin-top:22px !important; }
-    .main-content section + section{ margin-top:22px !important; }
-    .video-list{
-      display:flex !important;
-      flex-direction:column !important;
-      gap:10px !important;
-    }
-    .video-item{
-      flex-direction:row !important;
-      align-items:center !important;
-    }
-    .video-item .thumb{
-      width:86px !important;
-      height:56px !important;
-    }
-    .gallery-grid{
-      grid-template-columns:repeat(2,1fr) !important;
-    }
-  }
-
-
-  /* ===== ADMIN AUTH ===== */
-  #editFab{ display:none; }
-  #adminLoginBtn{
-    position:fixed; left:18px; bottom:18px; z-index:80;
-    border:1px solid var(--line); border-radius:999px;
-    background:rgba(255,255,255,.95); color:var(--muted);
-    padding:8px 12px; cursor:pointer;
-    font-family:'Nunito',sans-serif; font-size:11px; font-weight:800;
-    box-shadow:0 6px 18px rgba(70,58,99,.12);
-  }
-  #adminLoginBtn.is-owner{ color:var(--pink-deep); }
-  #adminAuthOverlay{
-    position:fixed; inset:0; z-index:100; display:none;
-    align-items:center; justify-content:center; padding:20px;
-    background:rgba(70,58,99,.38);
-  }
-  #adminAuthOverlay.open{ display:flex; }
-  #adminAuthBox{
-    width:min(360px,94vw); padding:20px;
-    border-radius:22px; background:var(--surface);
-    box-shadow:0 18px 50px rgba(70,58,99,.28);
-  }
-  #adminAuthBox h3{ margin:0 0 5px; font-family:'Fredoka',sans-serif; font-size:18px; }
-  #adminAuthBox p{ margin:0 0 14px; color:var(--muted); font-size:12px; }
-  #adminAuthBox input{
-    width:100%; margin:0 0 9px; padding:11px 12px;
-    border:1.5px solid var(--line); border-radius:11px;
-    background:var(--surface-tint); color:var(--text);
-    font-family:'Nunito',sans-serif; font-size:13px;
-  }
-  .admin-auth-actions{ display:flex; gap:8px; }
-  .admin-auth-actions button, #adminLogoutBtn{
-    border:none; border-radius:11px; padding:11px; cursor:pointer;
-    font-family:'Fredoka',sans-serif; font-weight:600;
-  }
-  .admin-auth-actions button{ flex:1; }
-  #adminLoginSubmit{ background:var(--pink-deep); color:#fff; }
-  #adminLoginCancel, #adminLogoutBtn{ background:var(--surface-tint); color:var(--muted); }
-  #adminLogoutBtn{ width:100%; margin-top:10px; display:none; }
-  #adminAuthMsg{ min-height:18px; margin-top:8px; font-size:12px; color:var(--pink-deep); }
+  #editFab{display:none;}
+  #adminLoginBtn{position:fixed;left:18px;bottom:18px;z-index:80;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.95);color:var(--muted);padding:8px 12px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;box-shadow:0 6px 18px rgba(70,58,99,.12);}
+  #adminLoginBtn.is-owner{color:var(--pink-deep);}
+  #adminAuthOverlay{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(70,58,99,.38);}
+  #adminAuthOverlay.open{display:flex;}
+  #adminAuthBox{width:min(360px,94vw);padding:20px;border-radius:22px;background:var(--surface);box-shadow:0 18px 50px rgba(70,58,99,.28);}
+  #adminAuthBox h3{margin:0 0 5px;font-family:'Fredoka',sans-serif;font-size:18px;}
+  #adminAuthBox p{margin:0 0 14px;color:var(--muted);font-size:12px;}
+  #adminAuthBox input{width:100%;margin:0 0 9px;padding:11px 12px;border:1.5px solid var(--line);border-radius:11px;background:var(--surface-tint);color:var(--text);font-family:'Nunito',sans-serif;font-size:13px;}
+  .admin-auth-actions{display:flex;gap:8px;}
+  .admin-auth-actions button,#adminLogoutBtn{border:none;border-radius:11px;padding:11px;cursor:pointer;font-family:'Fredoka',sans-serif;font-weight:600;}
+  .admin-auth-actions button{flex:1;}
+  #adminLoginSubmit{background:var(--pink-deep);color:#fff;}
+  #adminLoginCancel,#adminLogoutBtn{background:var(--surface-tint);color:var(--muted);}
+  #adminLogoutBtn{width:100%;margin-top:10px;display:none;}
+  #adminAuthMsg{min-height:18px;margin-top:8px;font-size:12px;color:var(--pink-deep);}
 
 </style>
 </head>
@@ -618,12 +503,11 @@
 </div>
 
 
-<!-- ===== ADMIN AUTH ===== -->
 <button id="adminLoginBtn" type="button">관리자 로그인</button>
 <div id="adminAuthOverlay">
   <div id="adminAuthBox">
     <h3>관리자 로그인</h3>
-    <p>Supabase 관리자 계정으로 로그인하세요.</p>
+    <p>Supabase에서 만든 관리자 계정으로 로그인하세요.</p>
     <input id="adminEmail" type="email" autocomplete="username" placeholder="이메일">
     <input id="adminPassword" type="password" autocomplete="current-password" placeholder="비밀번호">
     <div class="admin-auth-actions">
@@ -744,7 +628,7 @@
   var STORAGE_KEY = 'my-channel-hub-v2';
   var SUPABASE_URL = 'https://fuhtdwcqsrddaewwajre.supabase.co';
   var SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_zcYG0iis45iVmk6WuRlxQQ_q_VAZgcS';
-  var OWNER_UID = '7eede163-58c2-4141-87ce-3ec235d36fb0';
+  var OWNER_UID = '2eb8fde6-0f57-4835-9b5f-507667246507';
   var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
   var isOwner = false;
   var currentSession = null;
@@ -809,48 +693,34 @@
     try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); return true; }
     catch(e){ return false; }
   }
-
   async function loadRemoteState(){
     try{
-      var result = await sb.from('site_content').select('content').eq('id', 1).single();
+      var result = await sb.from('site_content').select('content').eq('id',1).single();
       if(result.error) throw result.error;
-
       var remote = result.data && result.data.content;
       if(remote && Object.keys(remote).length){
         var base = cloneDefaults();
         state = Object.assign({}, base, remote);
-
         if(!Array.isArray(state.videos)) state.videos = base.videos;
         if(!Array.isArray(state.debts)) state.debts = base.debts;
         if(!Array.isArray(state.gallery)) state.gallery = base.gallery;
-
         saveState(state);
         render(state);
         applyOwnerUI(currentSession);
       }
-    }catch(err){
-      console.warn('Supabase 불러오기 실패:', err);
-    }
+    }catch(err){ console.warn('Supabase load failed:', err); }
   }
 
   async function saveRemoteState(s){
-    if(!isOwner){
-      return {ok:false, message:'관리자 로그인 후 저장할 수 있어요'};
-    }
+    if(!isOwner) return {ok:false,message:'관리자 로그인 후 저장할 수 있어요'};
     try{
-      var result = await sb.from('site_content')
-        .update({
-          content:s,
-          updated_at:new Date().toISOString()
-        })
-        .eq('id', 1);
-
+      var result = await sb.from('site_content').update({content:s,updated_at:new Date().toISOString()}).eq('id',1);
       if(result.error) throw result.error;
       saveState(s);
       return {ok:true};
     }catch(err){
-      console.error('Supabase 저장 실패:', err);
-      return {ok:false, message:'온라인 저장에 실패했어요'};
+      console.error('Supabase save failed:', err);
+      return {ok:false,message:'온라인 저장에 실패했어요'};
     }
   }
 
@@ -992,18 +862,14 @@
   render(state);
 
   document.getElementById('debtList').addEventListener('change', async function(e){
-    var t = e.target;
-    if(t && t.matches && t.matches('input[type=checkbox][data-debt-index]')){
-      if(!isOwner){
-        t.checked = !t.checked;
-        showToast('관리자만 수정할 수 있어요');
-        return;
-      }
-      var idx = parseInt(t.getAttribute('data-debt-index'), 10);
+    var t=e.target;
+    if(t&&t.matches&&t.matches('input[type=checkbox][data-debt-index]')){
+      if(!isOwner){t.checked=!t.checked;showToast('관리자만 수정할 수 있어요');return;}
+      var idx=parseInt(t.getAttribute('data-debt-index'),10);
       if(state.debts[idx]){
-        state.debts[idx].checked = t.checked;
-        var saved = await saveRemoteState(state);
-        showToast(saved.ok ? '온라인에 저장되었어요 🐻' : saved.message);
+        state.debts[idx].checked=t.checked;
+        var saved=await saveRemoteState(state);
+        showToast(saved.ok?'온라인에 저장되었어요 🐻':saved.message);
       }
     }
   });
@@ -1212,126 +1078,83 @@
   overlay.addEventListener('click', closePanel);
 
   saveBtn.addEventListener('click', async function(){
-    if(!isOwner){
-      showToast('관리자 로그인 후 저장할 수 있어요');
-      return;
-    }
-
-    state = cloneState(draft);
+    if(!isOwner){showToast('관리자 로그인 후 저장할 수 있어요');return;}
+    state=cloneState(draft);
     render(state);
-
-    var saved = await saveRemoteState(state);
-    showToast(saved.ok ? '온라인에 저장되었어요 🐻' : saved.message);
+    var saved=await saveRemoteState(state);
+    showToast(saved.ok?'온라인에 저장되었어요 🐻':saved.message);
   });
 
   resetBtn.addEventListener('click', async function(){
-    if(!isOwner){
-      showToast('관리자만 초기화할 수 있어요');
-      return;
-    }
+    if(!isOwner){showToast('관리자만 초기화할 수 있어요');return;}
     if(!confirm('처음 상태로 되돌릴까요? 온라인에 저장된 내용도 바뀝니다.')) return;
-
-    state = cloneDefaults();
-    var saved = await saveRemoteState(state);
-
+    state=cloneDefaults();
+    var saved=await saveRemoteState(state);
     render(state);
-    draft = cloneState(state);
+    draft=cloneState(state);
     fillStaticForm();
     renderAllEditors();
-
-    showToast(saved.ok ? '온라인 데이터가 초기화되었어요' : saved.message);
+    showToast(saved.ok?'온라인 데이터가 초기화되었어요':saved.message);
   });
 
-  /* ===== ADMIN AUTH LOGIC ===== */
-  var adminLoginBtn = document.getElementById('adminLoginBtn');
-  var adminAuthOverlay = document.getElementById('adminAuthOverlay');
-  var adminEmail = document.getElementById('adminEmail');
-  var adminPassword = document.getElementById('adminPassword');
-  var adminLoginSubmit = document.getElementById('adminLoginSubmit');
-  var adminLoginCancel = document.getElementById('adminLoginCancel');
-  var adminLogoutBtn = document.getElementById('adminLogoutBtn');
-  var adminAuthMsg = document.getElementById('adminAuthMsg');
+  var adminLoginBtn=document.getElementById('adminLoginBtn');
+  var adminAuthOverlay=document.getElementById('adminAuthOverlay');
+  var adminEmail=document.getElementById('adminEmail');
+  var adminPassword=document.getElementById('adminPassword');
+  var adminLoginSubmit=document.getElementById('adminLoginSubmit');
+  var adminLoginCancel=document.getElementById('adminLoginCancel');
+  var adminLogoutBtn=document.getElementById('adminLogoutBtn');
+  var adminAuthMsg=document.getElementById('adminAuthMsg');
 
   function applyOwnerUI(session){
-    currentSession = session || null;
-
-    var uid = session && session.user ? session.user.id : '';
-    isOwner = uid === OWNER_UID;
-
-    fab.style.display = isOwner ? 'flex' : 'none';
-
-    adminLoginBtn.textContent = isOwner ? '관리자 ✓' : '관리자 로그인';
-    adminLoginBtn.classList.toggle('is-owner', isOwner);
-
-    adminEmail.style.display = isOwner ? 'none' : 'block';
-    adminPassword.style.display = isOwner ? 'none' : 'block';
-    adminLoginSubmit.style.display = isOwner ? 'none' : 'block';
-    adminLogoutBtn.style.display = isOwner ? 'block' : 'none';
-
-    document.querySelectorAll('#debtList input[type=checkbox]').forEach(function(el){
-      el.disabled = !isOwner;
-    });
-
+    currentSession=session||null;
+    var uid=session&&session.user?session.user.id:'';
+    isOwner=uid===OWNER_UID;
+    fab.style.display=isOwner?'flex':'none';
+    adminLoginBtn.textContent=isOwner?'관리자 ✓':'관리자 로그인';
+    adminLoginBtn.classList.toggle('is-owner',isOwner);
+    adminEmail.style.display=isOwner?'none':'block';
+    adminPassword.style.display=isOwner?'none':'block';
+    adminLoginSubmit.style.display=isOwner?'none':'block';
+    adminLogoutBtn.style.display=isOwner?'block':'none';
+    document.querySelectorAll('#debtList input[type=checkbox]').forEach(function(el){el.disabled=!isOwner;});
     if(!isOwner) closePanel();
   }
 
-  adminLoginBtn.addEventListener('click', function(){
-    adminAuthMsg.textContent = isOwner ? '관리자로 로그인되어 있어요.' : '';
+  adminLoginBtn.addEventListener('click',function(){
+    adminAuthMsg.textContent=isOwner?'관리자로 로그인되어 있어요.':'';
     adminAuthOverlay.classList.add('open');
   });
+  adminLoginCancel.addEventListener('click',function(){adminAuthOverlay.classList.remove('open');});
+  adminAuthOverlay.addEventListener('click',function(e){if(e.target===adminAuthOverlay)adminAuthOverlay.classList.remove('open');});
 
-  adminLoginCancel.addEventListener('click', function(){
-    adminAuthOverlay.classList.remove('open');
-  });
-
-  adminAuthOverlay.addEventListener('click', function(e){
-    if(e.target === adminAuthOverlay){
-      adminAuthOverlay.classList.remove('open');
-    }
-  });
-
-  adminLoginSubmit.addEventListener('click', async function(){
-    adminAuthMsg.textContent = '로그인 중...';
-
-    var result = await sb.auth.signInWithPassword({
-      email: adminEmail.value.trim(),
-      password: adminPassword.value
-    });
-
-    if(result.error){
-      adminAuthMsg.textContent = '로그인 실패: 이메일 또는 비밀번호를 확인해주세요.';
-      return;
-    }
-
-    if(!result.data.user || result.data.user.id !== OWNER_UID){
+  adminLoginSubmit.addEventListener('click',async function(){
+    adminAuthMsg.textContent='로그인 중...';
+    var result=await sb.auth.signInWithPassword({email:adminEmail.value.trim(),password:adminPassword.value});
+    if(result.error){adminAuthMsg.textContent='로그인 실패: 이메일 또는 비밀번호를 확인해주세요.';return;}
+    if(!result.data.user||result.data.user.id!==OWNER_UID){
       await sb.auth.signOut();
-      adminAuthMsg.textContent = '이 계정은 관리자 계정이 아니에요.';
+      adminAuthMsg.textContent='이 계정은 관리자 계정이 아니에요.';
       return;
     }
-
-    adminPassword.value = '';
+    adminPassword.value='';
     applyOwnerUI(result.data.session);
-    adminAuthMsg.textContent = '로그인 성공!';
-
-    setTimeout(function(){
-      adminAuthOverlay.classList.remove('open');
-    }, 450);
+    adminAuthMsg.textContent='로그인 성공!';
+    setTimeout(function(){adminAuthOverlay.classList.remove('open');},450);
   });
 
-  adminLogoutBtn.addEventListener('click', async function(){
+  adminLogoutBtn.addEventListener('click',async function(){
     await sb.auth.signOut();
     applyOwnerUI(null);
     adminAuthOverlay.classList.remove('open');
     showToast('로그아웃했어요');
   });
 
-  sb.auth.onAuthStateChange(function(event, session){
-    applyOwnerUI(session);
-  });
+  sb.auth.onAuthStateChange(function(event,session){applyOwnerUI(session);});
 
   (async function initOnline(){
-    var sessionResult = await sb.auth.getSession();
-    applyOwnerUI(sessionResult.data && sessionResult.data.session);
+    var sessionResult=await sb.auth.getSession();
+    applyOwnerUI(sessionResult.data&&sessionResult.data.session);
     await loadRemoteState();
   })();
 
