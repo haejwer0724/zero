@@ -126,9 +126,8 @@
   .video-list{ display:flex; flex-direction:column; gap:10px; }
   .video-item{ display:flex; gap:12px; align-items:center; text-decoration:none; color:var(--text); background:var(--surface-tint); border-radius:16px; padding:10px; transition: box-shadow .15s ease; }
   .video-item:hover{ box-shadow:0 6px 16px rgba(174,152,232,0.22); }
-  .thumb{ width:86px; height:56px; border-radius:10px; flex-shrink:0; background:linear-gradient(135deg, var(--blue), var(--lav)); display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; }
+  .thumb{ width:86px; height:56px; border-radius:10px; flex-shrink:0; background:linear-gradient(135deg, var(--blue), var(--lav)); display:flex; align-items:center; justify-content:center; }
   .thumb svg{ width:18px; height:18px; color:#fff; }
-  .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
   .video-meta b{ font-size:13.5px; display:block; margin-bottom:3px; }
   .video-meta span{ font-size:12px; color:var(--muted); }
 
@@ -211,32 +210,6 @@
   .field-row .field{ flex:1; }
   .field.checkbox-field{ display:flex; align-items:center; gap:8px; }
   .field.checkbox-field label{ margin:0; }
-
-  .photo-upload-row{ display:flex; align-items:center; gap:10px; }
-  .photo-upload-preview{
-    width:52px; height:52px; border-radius:50%; flex-shrink:0;
-    background:var(--surface); border:1.5px solid var(--line);
-    display:flex; align-items:center; justify-content:center; overflow:hidden;
-  }
-  .photo-upload-preview img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .photo-upload-preview span{ font-size:20px; }
-  .thumb-upload-preview{
-    width:64px; height:42px; border-radius:8px; flex-shrink:0;
-    background:linear-gradient(135deg, var(--blue), var(--lav));
-    display:flex; align-items:center; justify-content:center; overflow:hidden;
-  }
-  .thumb-upload-preview img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .thumb-upload-preview span{ font-size:14px; color:#fff; }
-  .upload-btn{
-    padding:8px 14px; border-radius:10px; background:var(--surface-tint);
-    color:var(--pink-deep); font-family:'Fredoka',sans-serif; font-weight:600;
-    font-size:12.5px; cursor:pointer; white-space:nowrap; border:1.5px solid var(--line);
-  }
-  .upload-btn:hover{ background:#fff; }
-  .remove-btn{
-    font-size:11.5px; color:var(--muted); text-decoration:underline; cursor:pointer;
-    background:none; border:none; padding:0; margin-left:2px; font-family:'Nunito',sans-serif;
-  }
   .edit-foot{
     position:absolute; left:0; right:0; bottom:0;
     padding:14px 20px; background:var(--surface);
@@ -319,8 +292,7 @@
 
       <div class="photo-frame">
         <div class="inner">
-          <img id="f-photo" style="display:none;" alt="프로필 사진">
-          <div class="photo-placeholder" id="f-photo-placeholder">여기에<br>사진을 넣어주세요</div>
+          <div class="photo-placeholder">여기에<br>사진을 넣어주세요</div>
         </div>
       </div>
 
@@ -375,15 +347,15 @@
       </div>
       <div class="video-list">
         <a class="video-item" href="#" target="_blank" id="f-video1">
-          <div class="thumb" id="f-video1-thumb"><img id="f-video1-thumb-img" style="display:none;" alt=""><svg id="f-video1-thumb-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="thumb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
           <div class="video-meta"><b id="f-video1-title">영상 제목 1</b><span id="f-video1-sub">조회수 · 업로드일</span></div>
         </a>
         <a class="video-item" href="#" target="_blank" id="f-video2">
-          <div class="thumb" id="f-video2-thumb"><img id="f-video2-thumb-img" style="display:none;" alt=""><svg id="f-video2-thumb-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="thumb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
           <div class="video-meta"><b id="f-video2-title">영상 제목 2</b><span id="f-video2-sub">조회수 · 업로드일</span></div>
         </a>
         <a class="video-item" href="#" target="_blank" id="f-video3">
-          <div class="thumb" id="f-video3-thumb"><img id="f-video3-thumb-img" style="display:none;" alt=""><svg id="f-video3-thumb-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="thumb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
           <div class="video-meta"><b id="f-video3-title">영상 제목 3</b><span id="f-video3-sub">조회수 · 업로드일</span></div>
         </a>
       </div>
@@ -397,13 +369,13 @@
       <div class="card">
         <table class="week-table">
           <tr><th>요일</th><th>시간</th><th>내용</th></tr>
-          <tr data-day="mon"><td class="day">월</td><td id="f-week-mon-time">-</td><td id="f-week-mon-content" class="off">휴방</td></tr>
-          <tr data-day="tue"><td class="day">화</td><td id="f-week-tue-time">20:00</td><td id="f-week-tue-content">방송 내용</td></tr>
-          <tr data-day="wed"><td class="day">수</td><td id="f-week-wed-time">19:00</td><td id="f-week-wed-content">방송 내용</td></tr>
-          <tr data-day="thu"><td class="day">목</td><td id="f-week-thu-time">20:00</td><td id="f-week-thu-content">방송 내용</td></tr>
-          <tr data-day="fri"><td class="day">금</td><td id="f-week-fri-time">21:00</td><td id="f-week-fri-content">방송 내용</td></tr>
-          <tr data-day="sat"><td class="day">토</td><td id="f-week-sat-time">18:00</td><td id="f-week-sat-content">방송 내용</td></tr>
-          <tr data-day="sun"><td class="day">일</td><td id="f-week-sun-time">-</td><td id="f-week-sun-content" class="off">휴방</td></tr>
+          <tr><td class="day">월</td><td id="f-week-mon-time">-</td><td id="f-week-mon-content" class="off">휴방</td></tr>
+          <tr><td class="day">화</td><td id="f-week-tue-time">20:00</td><td id="f-week-tue-content">방송 내용</td></tr>
+          <tr class="today-row"><td class="day">수</td><td id="f-week-wed-time">19:00</td><td id="f-week-wed-content">방송 내용</td></tr>
+          <tr><td class="day">목</td><td id="f-week-thu-time">20:00</td><td id="f-week-thu-content">방송 내용</td></tr>
+          <tr><td class="day">금</td><td id="f-week-fri-time">21:00</td><td id="f-week-fri-content">방송 내용</td></tr>
+          <tr><td class="day">토</td><td id="f-week-sat-time">18:00</td><td id="f-week-sat-content">방송 내용</td></tr>
+          <tr><td class="day">일</td><td id="f-week-sun-time">-</td><td id="f-week-sun-content" class="off">휴방</td></tr>
         </table>
       </div>
     </section>
@@ -459,19 +431,6 @@
         <div class="field"><label>상단 뱃지 문구</label><input type="text" data-key="badge"></div>
         <div class="field"><label>닉네임</label><input type="text" data-key="name"></div>
         <div class="field"><label>한 줄 소개</label><input type="text" data-key="tagline"></div>
-        <div class="field photo-field">
-          <label>프로필 사진</label>
-          <div class="photo-upload-row">
-            <div class="photo-upload-preview" id="photoPreview">
-              <img id="photoPreviewImg" style="display:none;" alt="">
-              <span id="photoPreviewPlaceholder">🐻</span>
-            </div>
-            <label class="upload-btn" for="photoFileInput">사진 선택</label>
-            <input type="file" accept="image/*" id="photoFileInput" style="display:none;">
-            <button type="button" class="remove-btn" id="photoRemoveBtn">제거</button>
-          </div>
-          <input type="hidden" data-key="photo">
-        </div>
       </details>
 
       <details class="edit-group">
@@ -500,54 +459,12 @@
       <details class="edit-group">
         <summary>추천 영상</summary>
         <div class="field"><label>전체보기 링크</label><input type="url" data-key="videos-all" placeholder="https://..."></div>
-
-        <div class="field photo-field">
-          <label>영상 1 썸네일</label>
-          <div class="photo-upload-row">
-            <div class="thumb-upload-preview" id="video1ThumbPreview">
-              <img id="video1ThumbPreviewImg" style="display:none;" alt="">
-              <span id="video1ThumbPreviewPlaceholder">▶</span>
-            </div>
-            <label class="upload-btn" for="video1ThumbFileInput">썸네일 선택</label>
-            <input type="file" accept="image/*" id="video1ThumbFileInput" style="display:none;">
-            <button type="button" class="remove-btn" id="video1ThumbRemoveBtn">제거</button>
-          </div>
-          <input type="hidden" data-key="video1-thumb">
-        </div>
         <div class="field"><label>영상 1 제목</label><input type="text" data-key="video1-title"></div>
         <div class="field"><label>영상 1 설명</label><input type="text" data-key="video1-sub"></div>
         <div class="field"><label>영상 1 링크</label><input type="url" data-key="video1-href" placeholder="https://..."></div>
-
-        <div class="field photo-field">
-          <label>영상 2 썸네일</label>
-          <div class="photo-upload-row">
-            <div class="thumb-upload-preview" id="video2ThumbPreview">
-              <img id="video2ThumbPreviewImg" style="display:none;" alt="">
-              <span id="video2ThumbPreviewPlaceholder">▶</span>
-            </div>
-            <label class="upload-btn" for="video2ThumbFileInput">썸네일 선택</label>
-            <input type="file" accept="image/*" id="video2ThumbFileInput" style="display:none;">
-            <button type="button" class="remove-btn" id="video2ThumbRemoveBtn">제거</button>
-          </div>
-          <input type="hidden" data-key="video2-thumb">
-        </div>
         <div class="field"><label>영상 2 제목</label><input type="text" data-key="video2-title"></div>
         <div class="field"><label>영상 2 설명</label><input type="text" data-key="video2-sub"></div>
         <div class="field"><label>영상 2 링크</label><input type="url" data-key="video2-href" placeholder="https://..."></div>
-
-        <div class="field photo-field">
-          <label>영상 3 썸네일</label>
-          <div class="photo-upload-row">
-            <div class="thumb-upload-preview" id="video3ThumbPreview">
-              <img id="video3ThumbPreviewImg" style="display:none;" alt="">
-              <span id="video3ThumbPreviewPlaceholder">▶</span>
-            </div>
-            <label class="upload-btn" for="video3ThumbFileInput">썸네일 선택</label>
-            <input type="file" accept="image/*" id="video3ThumbFileInput" style="display:none;">
-            <button type="button" class="remove-btn" id="video3ThumbRemoveBtn">제거</button>
-          </div>
-          <input type="hidden" data-key="video3-thumb">
-        </div>
         <div class="field"><label>영상 3 제목</label><input type="text" data-key="video3-title"></div>
         <div class="field"><label>영상 3 설명</label><input type="text" data-key="video3-sub"></div>
         <div class="field"><label>영상 3 링크</label><input type="url" data-key="video3-href" placeholder="https://..."></div>
@@ -622,8 +539,7 @@
     'debt1-text':'약속했던 업보 내용 1', 'debt1-checked': false,
     'debt2-text':'완료한 업보 내용 2', 'debt2-checked': true,
     'debt3-text':'약속했던 업보 내용 3', 'debt3-checked': false,
-    'footer':'✦ 2026 · 자유롭게 수정해서 사용하세요 ✦',
-    'photo':'', 'video1-thumb':'', 'video2-thumb':'', 'video3-thumb':''
+    'footer':'✦ 2026 · 자유롭게 수정해서 사용하세요 ✦'
   };
 
   var textTargets = {
@@ -678,114 +594,6 @@
       var el = document.querySelector(checkTargets[key]);
       if(el) el.checked = !!state[key];
     });
-
-    // 프로필 사진
-    var photoImg = document.getElementById('f-photo');
-    var photoPlaceholder = document.getElementById('f-photo-placeholder');
-    if(state.photo){
-      photoImg.src = state.photo;
-      photoImg.style.display = 'block';
-      photoPlaceholder.style.display = 'none';
-    }else{
-      photoImg.removeAttribute('src');
-      photoImg.style.display = 'none';
-      photoPlaceholder.style.display = '';
-    }
-
-    // 영상 썸네일
-    ['video1','video2','video3'].forEach(function(v){
-      var img = document.getElementById('f-'+v+'-thumb-img');
-      var icon = document.getElementById('f-'+v+'-thumb-icon');
-      var val = state[v+'-thumb'];
-      if(val){
-        img.src = val;
-        img.style.display = 'block';
-        icon.style.display = 'none';
-      }else{
-        img.removeAttribute('src');
-        img.style.display = 'none';
-        icon.style.display = '';
-      }
-    });
-
-    highlightToday();
-  }
-
-  // 오늘 요일 자동 하이라이트
-  function highlightToday(){
-    var days = ['sun','mon','tue','wed','thu','fri','sat'];
-    var today = days[new Date().getDay()];
-    Array.prototype.forEach.call(document.querySelectorAll('.week-table tr[data-day]'), function(tr){
-      if(tr.getAttribute('data-day') === today){
-        tr.classList.add('today-row');
-      }else{
-        tr.classList.remove('today-row');
-      }
-    });
-  }
-
-  // 이미지 파일을 지정한 최대 크기로 리사이즈해서 데이터 URL로 변환
-  function readImageResized(file, maxW, maxH, callback){
-    var reader = new FileReader();
-    reader.onload = function(e){
-      var img = new Image();
-      img.onload = function(){
-        var ratio = Math.min(maxW / img.width, maxH / img.height, 1);
-        var w = Math.round(img.width * ratio);
-        var h = Math.round(img.height * ratio);
-        var canvas = document.createElement('canvas');
-        canvas.width = w;
-        canvas.height = h;
-        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-        callback(canvas.toDataURL('image/jpeg', 0.85));
-      };
-      img.onerror = function(){ callback(null); };
-      img.src = e.target.result;
-    };
-    reader.onerror = function(){ callback(null); };
-    reader.readAsDataURL(file);
-  }
-
-  // 프로필 사진 / 영상 썸네일 업로드 필드 연결
-  function setupImageUpload(fileInputId, hiddenKey, previewImgId, previewPlaceholderId, removeBtnId, maxW, maxH){
-    var fileInput = document.getElementById(fileInputId);
-    var hiddenInput = document.querySelector('[data-key="'+hiddenKey+'"]');
-    var previewImg = document.getElementById(previewImgId);
-    var previewPlaceholder = document.getElementById(previewPlaceholderId);
-    var removeBtn = document.getElementById(removeBtnId);
-
-    function updatePreview(dataUrl){
-      if(dataUrl){
-        previewImg.src = dataUrl;
-        previewImg.style.display = 'block';
-        previewPlaceholder.style.display = 'none';
-      }else{
-        previewImg.removeAttribute('src');
-        previewImg.style.display = 'none';
-        previewPlaceholder.style.display = '';
-      }
-    }
-
-    fileInput.addEventListener('change', function(){
-      var file = fileInput.files && fileInput.files[0];
-      if(!file) return;
-      readImageResized(file, maxW, maxH, function(dataUrl){
-        if(!dataUrl){
-          showToast('이미지를 불러오지 못했어요');
-          return;
-        }
-        hiddenInput.value = dataUrl;
-        updatePreview(dataUrl);
-      });
-    });
-
-    removeBtn.addEventListener('click', function(){
-      hiddenInput.value = '';
-      fileInput.value = '';
-      updatePreview('');
-    });
-
-    return { updatePreview: updatePreview };
   }
 
   function fillForm(state){
@@ -798,18 +606,7 @@
         input.value = state[key] !== undefined ? state[key] : '';
       }
     });
-    imageUploaders.photo.updatePreview(state.photo);
-    imageUploaders.video1.updatePreview(state['video1-thumb']);
-    imageUploaders.video2.updatePreview(state['video2-thumb']);
-    imageUploaders.video3.updatePreview(state['video3-thumb']);
   }
-
-  var imageUploaders = {
-    photo: setupImageUpload('photoFileInput', 'photo', 'photoPreviewImg', 'photoPreviewPlaceholder', 'photoRemoveBtn', 500, 500),
-    video1: setupImageUpload('video1ThumbFileInput', 'video1-thumb', 'video1ThumbPreviewImg', 'video1ThumbPreviewPlaceholder', 'video1ThumbRemoveBtn', 480, 320),
-    video2: setupImageUpload('video2ThumbFileInput', 'video2-thumb', 'video2ThumbPreviewImg', 'video2ThumbPreviewPlaceholder', 'video2ThumbRemoveBtn', 480, 320),
-    video3: setupImageUpload('video3ThumbFileInput', 'video3-thumb', 'video3ThumbPreviewImg', 'video3ThumbPreviewPlaceholder', 'video3ThumbRemoveBtn', 480, 320)
-  };
 
   function readForm(){
     var form = document.getElementById('editForm');
